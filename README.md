@@ -1,6 +1,8 @@
 # hello-gdext-wasm
 Rust `gdext` wasm test project
 
+Please clone with `git clone https://github.com/PgBiel/hello-gdext-wasm.git --recurse-submodule`
+
 ## Setup
 
 (Full info at https://gist.github.com/PgBiel/ffa695a479ef4466cb24755db983950b)

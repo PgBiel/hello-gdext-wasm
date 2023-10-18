@@ -1,0 +1,4 @@
+[submodule "gdext"]
+	path = gdext
+	url = https://github.com/PgBiel/gdext.git
+	branch = wasm-test
