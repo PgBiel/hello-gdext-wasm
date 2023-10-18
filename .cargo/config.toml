@@ -1,0 +1,25 @@
+[build]
+target = ["wasm32-unknown-emscripten"]
+
+[unstable]
+build-std = ["std", "panic_abort"]
+
+[target.wasm32-unknown-emscripten]
+rustflags = [
+    "-C", "link-args=-sSIDE_MODULE=2 -sEXPORT_ALL=1",
+    "-Zlink-native-libraries=no",
+    "-C", "link-args=-pthread",
+    "-Ctarget-feature=+atomics,+bulk-memory,+mutable-globals",
+    "-C", "link-args=-sSHARED_MEMORY=1",
+    # Everything above is mandatory
+    # Everything below this is optional
+    "-Clink-arg=--no-entry",
+    "-Clink-arg=-O0",
+    "-Clink-arg=-sASSERTIONS=2",
+    "-Clink-arg=-sSAFE_HEAP=1",
+    "-Clink-arg=-sSTACK_OVERFLOW_CHECK=2",
+    "-Clink-arg=-sDEMANGLE_SUPPORT=1",
+    "-Clink-arg=-g",
+    "-Clink-arg=-sSTACK_SIZE=1024MB",
+    "-Clink-arg=-sINITIAL_MEMORY=4294967296",
+]
