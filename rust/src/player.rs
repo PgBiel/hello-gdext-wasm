@@ -24,6 +24,10 @@ impl Sprite2DVirtual for Player {
         }
     }
 
+    fn ready(&mut self) {
+        godot_print!("Rust is ready!");
+    }
+
     fn physics_process(&mut self, delta: f64) {
         // In GDScript, this would be:
         // rotation += angular_speed * delta
