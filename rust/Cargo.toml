@@ -1,13 +1,10 @@
 [package]
-name = "hello_gdext"
+name = "coolbeans"
 version = "0.1.0"
 edition = "2021"
 
 [lib]
-crate-type = ["cdylib"]
-
-[profile.release]
-debug = true
+crate-type = ["cdylib"]  # Compile this crate to a dynamic C library.
 
 [dependencies]
-godot = { git = "https://github.com/godot-rust/gdext", branch = "master", default-features = false }
+godot = { path = "../../../gdext/godot", features = ["api-4-3"]}
