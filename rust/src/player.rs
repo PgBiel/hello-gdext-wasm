@@ -4,6 +4,7 @@ use godot::prelude::*;
 #[derive(GodotClass)]
 #[class(base=Sprite2D)]
 struct Player {
+    #[allow(unused)]
     speed: f64,
     angular_speed: f64,
     #[export]
@@ -12,12 +13,6 @@ struct Player {
     base: Base<Sprite2D>,
 }
 
-#[godot_api]
-impl Player {
-    fn thing(&self) {
-        godot_print!("Waiting!");
-    }
-}
 #[godot_api]
 impl ISprite2D for Player {
     fn init(base: Base<Sprite2D>) -> Self {
