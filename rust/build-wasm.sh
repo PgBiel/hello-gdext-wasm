@@ -11,7 +11,7 @@ RUSTFLAGS="-C link-args=-pthread \
   --features godot/experimental-wasm,godot/lazy-function-tables \
   -Zbuild-std --target wasm32-unknown-emscripten $@
 
-mv target/wasm32-unknown-emscripten/debug/coolbeans.wasm target/wasm32-unknown-emscripten/debug/coolbeans.threads.wasm || true
+mv target/wasm32-unknown-emscripten/debug/hello_gdext_wasm.wasm target/wasm32-unknown-emscripten/debug/hello_gdext_wasm.threads.wasm || true
 
 # Single-threaded wasm
 EM_CACHE=$(mktemp -d) cargo +nightly build \

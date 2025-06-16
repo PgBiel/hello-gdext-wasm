@@ -1,5 +1,5 @@
 [package]
-name = "coolbeans"
+name = "hello_gdext_wasm"
 version = "0.1.0"
 edition = "2021"
 
