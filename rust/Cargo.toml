@@ -10,4 +10,4 @@ crate-type = ["cdylib"]  # Compile this crate to a dynamic C library.
 nothreads = ["godot/experimental-wasm-nothreads"]
 
 [dependencies]
-godot = { path = "../../../gdext/godot", features = ["api-4-3"]}
+godot = { version = "0.3.1", features = ["api-4-3"]}
