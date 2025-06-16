@@ -1,0 +1,18 @@
+[configuration]
+entry_symbol = "gdext_rust_init"
+compatibility_minimum = 4.1
+reloadable = true
+
+[libraries]
+linux.debug.x86_64 =     "res://../rust/target/debug/libhello_gdext_wasm.so"
+linux.release.x86_64 =   "res://../rust/target/release/libhello_gdext_wasm.so"
+windows.debug.x86_64 =   "res://../rust/target/debug/hello_gdext_wasm.dll"
+windows.release.x86_64 = "res://../rust/target/release/hello_gdext_wasm.dll"
+macos.debug =            "res://../rust/target/debug/libhello_gdext_wasm.dylib"
+macos.release =          "res://../rust/target/release/libhello_gdext_wasm.dylib"
+macos.debug.arm64 =      "res://../rust/target/debug/libhello_gdext_wasm.dylib"
+macos.release.arm64 =    "res://../rust/target/release/libhello_gdext_wasm.dylib"
+web.debug.threads.wasm32 = "res://../rust/target/wasm32-unknown-emscripten/debug/hello_gdext_wasm.threads.wasm"
+web.release.threads.wasm32 = "res://../rust/target/wasm32-unknown-emscripten/release/hello_gdext_wasm.threads.wasm"
+web.debug.wasm32 = "res://../rust/target/wasm32-unknown-emscripten/debug/hello_gdext_wasm.wasm"
+web.release.wasm32 = "res://../rust/target/wasm32-unknown-emscripten/release/hello_gdext_wasm.wasm"

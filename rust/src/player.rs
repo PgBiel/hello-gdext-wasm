@@ -1,34 +1,53 @@
+use godot::classes::{Area2D, ISprite2D, Sprite2D};
 use godot::prelude::*;
-use godot::engine::Sprite2D;
-use godot::engine::Sprite2DVirtual;
 
 #[derive(GodotClass)]
 #[class(base=Sprite2D)]
 struct Player {
+    #[allow(unused)]
     speed: f64,
     angular_speed: f64,
+    #[export]
+    clickee: OnEditor<Gd<Area2D>>,
 
-    #[base]
-    sprite: Base<Sprite2D>
+    base: Base<Sprite2D>,
 }
 
 #[godot_api]
-impl Sprite2DVirtual for Player {
-    fn init(sprite: Base<Sprite2D>) -> Self {
+impl ISprite2D for Player {
+    fn init(base: Base<Sprite2D>) -> Self {
         godot_print!("Hello, world!"); // Prints to the Godot console
 
         Self {
             speed: 400.0,
             angular_speed: std::f64::consts::PI,
-            sprite
+            clickee: OnEditor::default(),
+            base,
         }
+    }
+
+    fn ready(&mut self) {
+        godot_print!("I am ready.");
+        let clickee = (*self.clickee).clone();
+
+        // spawn a new async task
+        godot::task::spawn(async move {
+            godot_print!("Waiting!");
+            // await a signal
+            let _: () = Signal::from_object_signal(&clickee, "mouse_entered")
+                .to_future()
+                .await;
+
+            godot_print!("Thanks for the mouse.");
+        });
     }
 
     fn physics_process(&mut self, delta: f64) {
         // In GDScript, this would be:
         // rotation += angular_speed * delta
 
-        self.sprite.rotate((self.angular_speed * delta) as f32);
+        let radians = (self.angular_speed * delta) as f32;
+        self.base_mut().rotate(radians);
         // The 'rotate' method requires a f32,
         // therefore we convert 'self.angular_speed * delta' which is a f64 to a f32
     }
