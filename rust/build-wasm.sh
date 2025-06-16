@@ -4,8 +4,8 @@ set -e
 
 # Multithreaded wasm
 RUSTFLAGS="-C link-args=-pthread \
+-C target-feature=+atomics \
 -C link-args=-sSIDE_MODULE=2 \
--C target-feature=+atomics,+bulk-memory,+mutable-globals \
 -Zlink-native-libraries=no \
 -Cllvm-args=-enable-emscripten-cxx-exceptions=0" EM_CACHE=$(mktemp -d) cargo +nightly build \
   --features godot/experimental-wasm,godot/lazy-function-tables \
