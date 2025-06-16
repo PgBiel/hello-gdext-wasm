@@ -6,5 +6,8 @@ edition = "2021"
 [lib]
 crate-type = ["cdylib"]  # Compile this crate to a dynamic C library.
 
+[features]
+nothreads = ["gdext/experimental-wasm-nothreads"]
+
 [dependencies]
 godot = { path = "../../../gdext/godot", features = ["api-4-3"]}
