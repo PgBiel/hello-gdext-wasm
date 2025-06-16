@@ -1,4 +1,4 @@
-use godot::classes::{ISprite2D, Sprite2D};
+use godot::classes::{Area2D, ISprite2D, Sprite2D};
 use godot::prelude::*;
 
 #[derive(GodotClass)]
@@ -6,10 +6,18 @@ use godot::prelude::*;
 struct Player {
     speed: f64,
     angular_speed: f64,
+    #[export]
+    clickee: OnEditor<Gd<Area2D>>,
 
     base: Base<Sprite2D>,
 }
 
+#[godot_api]
+impl Player {
+    fn thing(&self) {
+        godot_print!("Waiting!");
+    }
+}
 #[godot_api]
 impl ISprite2D for Player {
     fn init(base: Base<Sprite2D>) -> Self {
@@ -18,8 +26,25 @@ impl ISprite2D for Player {
         Self {
             speed: 400.0,
             angular_speed: std::f64::consts::PI,
+            clickee: OnEditor::default(),
             base,
         }
+    }
+
+    fn ready(&mut self) {
+        godot_print!("I am ready.");
+        let clickee = (*self.clickee).clone();
+
+        // spawn a new async task
+        godot::task::spawn(async move {
+            godot_print!("Waiting!");
+            // await a signal
+            let _: () = Signal::from_object_signal(&clickee, "mouse_entered")
+                .to_future()
+                .await;
+
+            godot_print!("Thanks for the mouse.");
+        });
     }
 
     fn physics_process(&mut self, delta: f64) {

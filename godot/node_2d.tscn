@@ -1,11 +1,33 @@
-[gd_scene load_steps=2 format=3 uid="uid://b54ahs4ke23qf"]
+[gd_scene load_steps=3 format=3 uid="uid://b54ahs4ke23qf"]
 
 [sub_resource type="CanvasTexture" id="CanvasTexture_1n12w"]
 specular_color = Color(0.665125, 0.590453, 0.901292, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y32ns"]
+size = Vector2(191, 168)
+
 [node name="Node2D" type="Node2D"]
 position = Vector2(268, 177)
 
-[node name="Player" type="Player" parent="."]
+[node name="Player" type="Player" parent="." node_paths=PackedStringArray("clickee")]
+clickee = NodePath("../Area2D")
 scale = Vector2(240, 270)
 texture = SubResource("CanvasTexture_1n12w")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(536, 220)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_y32ns")
+
+[node name="Polygon2D" type="Polygon2D" parent="Area2D"]
+scale = Vector2(56098.5, 8767.11)
+color = Color(1, 0.258824, 1, 1)
+polygon = PackedVector2Array(-0.00171128, -0.00946721, 0.00169345, -0.00958127, 0.00171128, 0.00958127, -0.00169345, 0.00958127)
+
+[node name="Label" type="Label" parent="."]
+offset_left = 472.0
+offset_top = 101.0
+offset_right = 593.0
+offset_bottom = 129.0
+text = "click this fellow"
