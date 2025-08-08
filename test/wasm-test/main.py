@@ -1,25 +1,26 @@
 import argparse
-import http
+import logging
+import os
 import typing
+
 import splinter
 from splinter import Browser
-from time import sleep
 
 from splinter.driver.webdriver import WebDriverElement, WebDriverWait
-from operator import attrgetter
 
 
 def run(url: str, driver: str, headless: bool):
-    print("Begin running.")
+    log = logging.getLogger("run")
+    log.debug("Opening browser.")
     with Browser(driver, config=splinter.Config(headless=headless)) as browser:
         browser.visit(url)
-        print("Waiting for output")
+        log.debug("Waiting for output")
         WebDriverWait(browser, 10).until(lambda d: len(d.find_by_css(".stdout-entry")) > 4, "stdout not found")
         stdout = browser.find_by_css(".stdout-entry")
         stderr = browser.find_by_css(".stderr-entry")
-        print("Stdout:")
+        log.info("Stdout:")
         print([typing.cast(WebDriverElement, x)["textContent"] for x in stdout])
-        print("Stderr:")
+        log.info("Stderr:")
         print([typing.cast(WebDriverElement, x)["textContent"] for x in stderr])
 
 def main():
@@ -38,11 +39,11 @@ def main():
     url: str = args.url
     browser: str = args.browser
 
-    print("Hello from wasm-test!")
-    print(f"Running with url {url}, browser {args.browser}")
+    logging.basicConfig(level=os.environ["LOGLEVEL"].upper() if "LOGLEVEL" in os.environ else logging.INFO)
+    log = logging.getLogger("main")
+    log.info("Hello from wasm-test!")
+    log.info(f"Running with url {url}, browser {args.browser}")
     run(url, driver=browser, headless=args.headless)
-
-
 
 if __name__ == "__main__":
     main()
