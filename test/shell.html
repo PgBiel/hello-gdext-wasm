@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    <head>
+        <title>My Template</title>
+        <meta charset="UTF-8" />
+        <style>
+            .debug-data {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="stdout" class="debug-data" disabled></div>
+        <div id="stderr" class="debug-data" disabled></div>
+        <canvas id="canvas"></canvas>
+        <script src="$GODOT_URL"></script>
+        <script>
+            const stdout = document.getElementById("stdout");
+            const stderr = document.getElementById("stderr");
+            function entry(v, cls) {
+                const child = document.createElement("div");
+                child.className = cls;
+                child.appendChild(document.createTextNode(v));
+                return child;
+            }
+            function onPrint(v) {
+                stdout.appendChild(entry(v, "stdout-entry"));
+            }
+            function onPrintError(v) {
+                stderr.appendChild(entry(v, "stderr-entry"));
+            }
+            var engine = new Engine($GODOT_CONFIG);
+            engine.startGame({
+                onPrint,
+                onPrintError,
+            });
+        </script>
+    </body>
+</html>
