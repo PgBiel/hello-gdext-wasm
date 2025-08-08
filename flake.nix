@@ -11,6 +11,7 @@
         buildInputs = with pkgs; [
           rustup
           emscripten
+          uv
         ];
       };
     }
